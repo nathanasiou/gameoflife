@@ -1,4 +1,4 @@
-# PSEUDO-RANDOM NUMBER GENERATORS IN THE GAME OF LIFE 
+## PSEUDO-RANDOM NUMBER GENERATORS IN THE GAME OF LIFE 
 Implementation of John Conway's Game of Life (https://playgameoflife.com).
 
 ## Description
