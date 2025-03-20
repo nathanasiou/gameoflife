@@ -8,7 +8,7 @@ import statistics
 
 MT = Generator(MT19937()) # Mersenne Twister generator
 PCG = Generator(PCG64()) # O’Neill’s permutation congruential generator
-# , show_plot = False, rng = MT
+
 class GameOfLife():
 
     def __init__(self, m = 10, n = 10, show_plot = False, rng = MT):
@@ -78,6 +78,7 @@ class GameOfLife():
                     # Display the plot for 1 second
                     plt.pause(.2)
 
+
         return self.population
             
             
@@ -99,16 +100,14 @@ class GameOfLife():
         
             #### call function
             if (np.sum(self.population)) == 0: 
+                plt.close()
                 SimulationComplete = True
             # the state from two iterations ago equals the current state
             elif iterations > 3 and (self.population == second_last_population).all() == True:
+                plt.close()
                 SimulationComplete = True
             # if simulation complete, return iterations and break loop
             if SimulationComplete == True:
                 break
         
         return "Simulation Ended",  iterations, self.base_population
-
-gl = GameOfLife(m=100,n=100,show_plot=True)
-gl.initialize_board()
-gl.decide_update()
