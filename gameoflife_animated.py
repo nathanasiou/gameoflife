@@ -100,14 +100,13 @@ class GameOfLife():
         
             #### call function
             if (np.sum(self.population)) == 0: 
-                plt.close()
                 SimulationComplete = True
             # the state from two iterations ago equals the current state
             elif iterations > 3 and (self.population == second_last_population).all() == True:
-                plt.close()
                 SimulationComplete = True
             # if simulation complete, return iterations and break loop
             if SimulationComplete == True:
+                plt.close()
                 break
         
         return "Simulation Ended",  iterations, self.base_population
