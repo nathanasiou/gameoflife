@@ -12,3 +12,6 @@ Install dependencies:
 '''
 pip install numpy matplotlib scipy collections numpy random statistics
 '''
+
+<img src="https://github.com/user-attachments/assets/a8ec2ab5-f36d-4132-a44f-c90d6135e435" width="300"/>
+
