@@ -13,11 +13,13 @@ class GameOfLife():
 
     def __init__(self, m = 10, n = 10, show_plot = False, rng = MT):
         self.base_population = np.zeros((m,n), dtype = int) # initialize blank board
+        self.last_population = np.zeros((m,n), dtype = int)
         self.alive = {}
         self.population = self.base_population
         self.rng = rng
         self.m = m
         self.n = n
+        self.iterations = 0
         self.show_plot = show_plot
 
     def initialize_board(self):
@@ -47,8 +49,8 @@ class GameOfLife():
             min_col = col - 1 if col - 1 >= 0 else col
             max_col = col + 1 if col + 1 < self.n else col
             neighbor_count = sum([(current_population[min_row][col] == 1), (current_population[row][min_col] == 1), (current_population[min_row][min_col] == 1), \
-                                    (current_population[max_row][min_col] == 1), (current_population[min_row][max_col] == 1), (current_population[max_row][max_col] == 1), \
-                                    (current_population[max_row][col] == 1), (current_population[row][max_col] == 1)])
+                                (current_population[max_row][min_col] == 1), (current_population[min_row][max_col] == 1), (current_population[max_row][max_col] == 1), \
+                                (current_population[max_row][col] == 1), (current_population[row][max_col] == 1)])
             
             # each cell with zero, one, or at least 4 neighbors dies
             if neighbor_count == 1 or neighbor_count == 0 or neighbor_count >= 4:
@@ -73,10 +75,11 @@ class GameOfLife():
                 self.population[coordinate] = 1
 
         if self.show_plot == True: # display plot of current population (not an animation)
-                    plt.imshow(self.population, interpolation='nearest')
-                    # plt.show()   
-                    # Display the plot for 1 second
-                    plt.pause(.2)
+            plt.imshow(self.population, interpolation='nearest')
+            # plot for .5 second
+            plt.pause(.2) # add input for how long want to see plot
+            import time
+            time.sleep(.3)
 
 
         return self.population
@@ -85,28 +88,18 @@ class GameOfLife():
     def decide_update(self):
         # # check conditions for simulation to end
         # # all dead cells
-        SimulationComplete = False
-        iterations = 0
-        while True:
-            old_population = self.population.copy()
-            iterations += 1
-            if iterations == 1:
-                second_last_population = np.zeros((self.base_population.shape[0], self.base_population.shape[1]))
-                last_population = self.base_population.copy() # making copy to check if 2 states ago equals current state -- then in a repeating sequence
-            elif iterations >= 2:
-                second_last_population = last_population.copy()
-                last_population = old_population
-                self.update_generations()
-        
-            #### call function
-            if (np.sum(self.population)) == 0: 
-                SimulationComplete = True
-            # the state from two iterations ago equals the current state
-            elif iterations > 3 and (self.population == second_last_population).all() == True:
-                SimulationComplete = True
-            # if simulation complete, return iterations and break loop
-            if SimulationComplete == True:
-                plt.close()
-                break
-        
-        return "Simulation Ended",  iterations, self.base_population
+        old_population = self.population.copy()
+        self.iterations += 1
+        if self.iterations == 1:
+            second_last_population = np.zeros((self.base_population.shape[0], self.base_population.shape[1]))
+            self.last_population = self.base_population.copy() # making copy to check if 2 states ago equals current state -- then in a repeating sequence
+        elif self.iterations >= 2:
+            second_last_population = self.last_population.copy()
+            self.last_population = old_population
+            self.update_generations()
+        self.decide_update()
+        #### end if no cells left or the state from two self.iterations ago equals the current state
+        if ((np.sum(self.population)) == 0) or (self.iterations > 3 and (self.population == second_last_population).all() == True):
+        # if simulation complete, return self.iterations
+            plt.close()
+            return "Simulation Ended",  self.iterations, self.base_population
