@@ -1,10 +1,9 @@
 from numpy.random import Generator, MT19937, PCG64
 from matplotlib import pyplot as plt
-from scipy.stats import ttest_ind
-from collections import Counter
 import numpy as np
-import matplotlib.animation as animation
-import statistics
+import matplotlib
+from matplotlib.figure import Figure
+import time
 
 MT = Generator(MT19937()) # Mersenne Twister generator
 PCG = Generator(PCG64()) # O’Neill’s permutation congruential generator
@@ -21,6 +20,7 @@ class GameOfLife():
         self.n = n
         self.iterations = 0
         self.show_plot = show_plot
+        self.fig = Figure()
 
     def initialize_board(self):
         # randomly select number of cells to be initialized with starting state alive or value of 1
@@ -75,15 +75,11 @@ class GameOfLife():
                 self.population[coordinate] = 1
 
         if self.show_plot == True: # display plot of current population (not an animation)
+            matplotlib.use('TkAgg') # fix issue with plot freezing when click out of popup
             plt.imshow(self.population, interpolation='nearest')
-            # plot for .5 second
-            plt.pause(.2) # add input for how long want to see plot
-            import time
+            # plot for .2 second
+            plt.pause(.2)
             time.sleep(.3)
-
-
-        return self.population
-            
             
     def decide_update(self):
         # # check conditions for simulation to end
@@ -93,13 +89,15 @@ class GameOfLife():
         if self.iterations == 1:
             second_last_population = np.zeros((self.base_population.shape[0], self.base_population.shape[1]))
             self.last_population = self.base_population.copy() # making copy to check if 2 states ago equals current state -- then in a repeating sequence
+            self.decide_update()
         elif self.iterations >= 2:
             second_last_population = self.last_population.copy()
             self.last_population = old_population
-            self.update_generations()
-        self.decide_update()
+        self.update_generations()
         #### end if no cells left or the state from two self.iterations ago equals the current state
         if ((np.sum(self.population)) == 0) or (self.iterations > 3 and (self.population == second_last_population).all() == True):
         # if simulation complete, return self.iterations
             plt.close()
-            return "Simulation Ended",  self.iterations, self.base_population
+        else:
+            self.decide_update()
+            
