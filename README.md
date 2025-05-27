@@ -1,14 +1,15 @@
 ## PSEUDO-RANDOM NUMBER GENERATORS IN THE GAME OF LIFE 
 
 ## Description
-gameoflife_animated.py
+#### gameoflife_animated.py
 Python class to simulate The Game of Life. Features user-defined grid dimensions and pseudo random number (PRN) generators, randomized cell starting states, and automatic program termination when a pattern starts repeating. Default is 10 x 10 board with Mersenne Twister PRN.
 
-gameoflife_animated_run.py
+#### gameoflife_animated_run.py
 To run gameoflife -- 
 ```
 python gameoflife_animated_run.py run
 ```
+
 ## Installation
 Install dependencies:
 '''
