@@ -1,4 +1,4 @@
-## PSEUDO-RANDOM NUMBER GENERATORS IN THE GAME OF LIFE 
+## Python Implementation of John Conway's Game of Life
 
 ## Description
 #### gameoflife_animated.py
