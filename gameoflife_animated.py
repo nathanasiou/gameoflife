@@ -96,7 +96,6 @@ class GameOfLife():
         self.update_generations()
         #### end if no cells left or the state from two self.iterations ago equals the current state
         if ((np.sum(self.population)) == 0) or (self.iterations > 3 and (self.population == second_last_population).all() == True):
-        # if simulation complete, return self.iterations
             plt.close()
         else:
             self.decide_update()
