@@ -30,3 +30,23 @@ Run with:
 
 ```bash
 python gameoflife_animated_run.py run
+```
+
+## Future Improvements
+
+Planned enhancements include:
+
+- **Switch to a non‑blocking animation backend**  
+  (e.g., `FuncAnimation`, `blit=True`, or a GUI toolkit like PyQt/Pygame)
+
+- **Asynchronous rendering**  
+  Use a separate thread or event loop to prevent UI freezing.
+
+- **Custom initial patterns**  
+  Load gliders, oscillators, spaceships, etc.
+
+- **Command‑line arguments**  
+  Let users specify grid size, RNG, speed, and seed from the terminal.
+
+- **GIF or MP4 export**  
+  Save animations of the simulation.
