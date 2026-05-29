@@ -12,7 +12,7 @@ This project is designed to be simple, readable, and faithful to the original ru
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ### `gameoflife_animated.py`
 Contains the `GameOfLife` class, which implements:
