@@ -1,20 +1,32 @@
-# Python Implementation of John Conway's Game of Life
+# Conway's Game of Life — Python Implementation
 
-## Description
-#### gameoflife_animated.py
-Python class to simulate The Game of Life. Features user-defined grid dimensions and pseudo random number (PRN) generators, randomized cell starting states, and automatic program termination when a pattern starts repeating. Default is 10 x 10 board with Mersenne Twister PRN.
+A clean, object‑oriented Python implementation of **John Conway’s Game of Life**, featuring:
 
-#### gameoflife_animated_run.py
-You may edit the default parameters within this script. To run gameoflife: 
-```
+- User‑defined grid size  
+- Choice of pseudo‑random number generators (MT19937 or PCG64)  
+- Randomized initial states  
+- Automatic termination when a repeating pattern is detected  
+- Optional animated visualization using Matplotlib  
+
+This project is designed to be simple, readable, and faithful to the original rules of the Game of Life.
+
+---
+
+## 📁 Project Structure
+
+### `gameoflife_animated.py`
+Contains the `GameOfLife` class, which implements:
+- Board initialization  
+- Neighbor counting  
+- Generation updates  
+- Loop detection  
+- Optional animation  
+
+### `gameoflife_animated_run.py`
+Entry point for running the simulation.  
+You may edit the default parameters (grid size, RNG, animation toggle).
+
+Run with:
+
+```bash
 python gameoflife_animated_run.py run
-```
-
-## Installation
-Install dependencies:
-```
-pip install numpy matplotlib time
-```
-
-<img src="https://github.com/user-attachments/assets/a8ec2ab5-f36d-4132-a44f-c90d6135e435" width="300"/>
-
